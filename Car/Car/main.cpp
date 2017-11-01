@@ -9,16 +9,6 @@ Author: Adam Engelhart
 
 using namespace std;
 
-Car& getOlder(Car &car1, Car &car2)
-{
-	return car1.isOlder(car2) ? car1 : car2;
-}
-
-Car& getLarger(Car &car1, Car &car2)
-{
-	return car1.isLarger(car2) ? car1 : car2;
-}
-
 int main()
 {
 	string make;
@@ -53,8 +43,8 @@ int main()
 	Car myCar(make, model, year, engineVolume, color);
 	Car myCar2;
 
-	getLarger(myCar, myCar2).print();
-	getOlder(myCar, myCar2).print();
+	myCar.getLarger(myCar, myCar2).print();
+	myCar.getOlder(myCar, myCar2).print();
 
 	system("pause");
 	return 0;

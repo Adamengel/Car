@@ -32,8 +32,10 @@ private:
 
 public:
 	Car();
-	Car(std::string make, std::string model, unsigned year, unsigned engineVolume, std::string color);
-	void print();
-	bool isOlder( Car &car2 );
-	bool isLarger(Car &car2 );
+	Car(const std::string make, const std::string model, unsigned year, unsigned engineVolume, const std::string color);
+	void print() const;
+	bool isOlder( const Car &car2 ) const;
+	bool isLarger(const Car &car2 ) const;
+	const Car& getOlder(const Car &car1, const Car &car2) const;
+	const Car& getLarger(const Car &car1, const Car &car2) const;
 };
