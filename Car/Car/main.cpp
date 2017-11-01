@@ -9,12 +9,12 @@ Author: Adam Engelhart
 
 using namespace std;
 
-Car getOlder(Car &car1, Car &car2)
+Car& getOlder(Car &car1, Car &car2)
 {
 	return car1.isOlder(car2) ? car1 : car2;
 }
 
-Car getLarger(Car &car1, Car &car2)
+Car& getLarger(Car &car1, Car &car2)
 {
 	return car1.isLarger(car2) ? car1 : car2;
 }
