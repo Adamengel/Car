@@ -56,6 +56,21 @@ Car::Car(const std::string make, const std::string model, unsigned year, unsigne
 	m_color[ index ] = '\0';
 }
 
+Car::Car(Car& newCar)
+{
+	int lengthColor = strlen(newCar.m_color);
+
+	m_make = newCar.m_make;
+	m_model = newCar.m_model;
+	m_year = newCar.m_year;
+	m_engineVolume = newCar.m_engineVolume;
+	for (int index = 0; index < lengthColor; index++)
+	{
+		m_color[ index ] = newCar.m_color[ index ];
+	}
+	m_color[ lengthColor ] = '\0';
+}
+
 void Car::print() const
 {
 	std::cout << "Make: " << m_make << "\nModel: " << m_model << "\nYear: "<<m_year<<"\nEngine Volume: " << m_engineVolume << "\nColor: " << m_color << std::endl<<std::endl;

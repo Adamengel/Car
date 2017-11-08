@@ -33,6 +33,7 @@ private:
 public:
 	Car();
 	Car(const std::string make, const std::string model, unsigned year, unsigned engineVolume, const std::string color);
+	Car(Car& newCar);
 	void print() const;
 	bool isOlder( const Car &car2 ) const;
 	bool isLarger(const Car &car2 ) const;

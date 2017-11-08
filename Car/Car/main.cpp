@@ -42,6 +42,7 @@ int main()
 
 	Car myCar(make, model, year, engineVolume, color);
 	Car myCar2;
+	Car myCar3(myCar2);
 
 	myCar.getLarger(myCar, myCar2).print();
 	myCar.getOlder(myCar, myCar2).print();
