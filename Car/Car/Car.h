@@ -29,6 +29,7 @@ private:
 	unsigned m_year;
 	unsigned m_engineVolume;
 	char m_color[ 10 ];
+	unsigned m_license; 
 
 public:
 	Car();
