@@ -20,24 +20,26 @@ isOlder --> compares the year to a car passed as parameter. returns true if olde
 
 #pragma once
 #include <string>
-
-class Car 
+namespace myCar
 {
-private:
-	std::string m_make;
-	std::string m_model;
-	unsigned m_year;
-	unsigned m_engineVolume;
-	char m_color[ 10 ];
-	unsigned m_license; 
+	class Car
+	{
+	private:
+		std::string m_make;
+		std::string m_model;
+		unsigned m_year;
+		unsigned m_engineVolume;
+		char m_color[ 10 ];
+		unsigned m_license;
 
-public:
-	Car();
-	Car(const std::string make, const std::string model, unsigned year, unsigned engineVolume, const std::string color);
-	Car(Car& newCar);
-	void print() const;
-	bool isOlder( const Car &car2 ) const;
-	bool isLarger(const Car &car2 ) const;
-	const Car& getOlder(const Car &car1, const Car &car2) const;
-	const Car& getLarger(const Car &car1, const Car &car2) const;
-};
+	public:
+		Car();
+		Car(const std::string make, const std::string model, unsigned year, unsigned engineVolume, const std::string color);
+		Car(Car& newCar);
+		void print() const;
+		bool isOlder(const Car &car2) const;
+		bool isLarger(const Car &car2) const;
+		const Car& getOlder(const Car &car1, const Car &car2) const;
+		const Car& getLarger(const Car &car1, const Car &car2) const;
+	};
+}

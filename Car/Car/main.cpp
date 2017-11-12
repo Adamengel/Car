@@ -8,6 +8,7 @@ Author: Adam Engelhart
 #include "Car.h"
 
 using namespace std;
+using namespace myCar;
 
 int main()
 {

@@ -16,84 +16,86 @@ isOlder --> compares the year to a car passed as parameter. returns true if olde
 #include "Car.h"
 #include "LicenceNumber.h"
 
-
-Car::Car(): m_make("Ford"), m_model("Focus"), m_year(2017), m_engineVolume(1600), m_color("White\0"), m_license(m_license = licenseNumber::getNextLicense())
-{}
-
-Car::Car(const std::string make, const std::string model, unsigned year, unsigned engineVolume, std::string color)
+namespace myCar
 {
-	unsigned index = 0;
+	Car::Car() : m_make("Ford"), m_model("Focus"), m_year(2017), m_engineVolume(1600), m_color("White\0"), m_license(m_license = licenseNumber::getNextLicense())
+	{}
 
-	const int minEngineVolume = 1400;
-	const int maxEngineVolume = 3000;
-	const int maxColorLength = 9;
-	const int minColorLength = 3;
-	const int maxYear =  2017;
-	const int minYear =  1980;
-
-	if (year > maxYear || year < minYear)
+	Car::Car(const std::string make, const std::string model, unsigned year, unsigned engineVolume, std::string color)
 	{
-		std::cout << "Year must be in the range " << minYear << "-" << maxYear << ". (Default set - "<<maxYear<<")"<<std::endl;
-		year = maxYear;
+		unsigned index = 0;
+
+		const int minEngineVolume = 1400;
+		const int maxEngineVolume = 3000;
+		const int maxColorLength = 9;
+		const int minColorLength = 3;
+		const int maxYear = 2017;
+		const int minYear = 1980;
+
+		if (year > maxYear || year < minYear)
+		{
+			std::cout << "Year must be in the range " << minYear << "-" << maxYear << ". (Default set - " << maxYear << ")" << std::endl;
+			year = maxYear;
+		}
+		if (engineVolume < minEngineVolume || engineVolume > maxEngineVolume)
+		{
+			std::cout << "Engine volume must be in the range " << minEngineVolume << "-" << maxEngineVolume << ". (Default set - " << minEngineVolume << ")" << std::endl;
+			engineVolume = minEngineVolume;
+		}
+		if (color.length() > maxColorLength || color.length() < minColorLength)
+		{
+			std::cout << "Length of color string must be between " << minColorLength << "-" << maxColorLength << ". (Default set - White)" << std::endl;
+			color = "White";
+		}
+		m_make = make;
+		m_model = model;
+		m_year = year;
+		m_engineVolume = engineVolume;
+		for (index = 0; index < color.length(); index++)
+		{
+			m_color[ index ] = color[ index ];
+		}
+		m_color[ index ] = '\0';
+		m_license = licenseNumber::getNextLicense();
 	}
-	if (engineVolume < minEngineVolume || engineVolume > maxEngineVolume)
+
+	Car::Car(Car& newCar)
 	{
-		std::cout << "Engine volume must be in the range " << minEngineVolume << "-" << maxEngineVolume << ". (Default set - " << minEngineVolume << ")" << std::endl;
-		engineVolume = minEngineVolume;
+		int lengthColor = strlen(newCar.m_color);
+
+		m_make = newCar.m_make;
+		m_model = newCar.m_model;
+		m_year = newCar.m_year;
+		m_engineVolume = newCar.m_engineVolume;
+		for (int index = 0; index < lengthColor; index++)
+		{
+			m_color[ index ] = newCar.m_color[ index ];
+		}
+		m_color[ lengthColor ] = '\0';
+		m_license = licenseNumber::getNextLicense();
 	}
-	if (color.length() > maxColorLength || color.length() < minColorLength)
+
+	void Car::print() const
 	{
-		std::cout << "Length of color string must be between " << minColorLength << "-" << maxColorLength << ". (Default set - White)" << std::endl;
-		color = "White";
+		std::cout << "Make: " << m_make << "\nModel: " << m_model << "\nYear: " << m_year << "\nEngine Volume: " << m_engineVolume << "\nColor: " << m_color << std::endl << "License Plate: " << m_license << std::endl << std::endl;
 	}
-	m_make = make;
-	m_model = model;
-	m_year = year;
-	m_engineVolume = engineVolume;
-	for (index = 0; index < color.length(); index++)
+
+	bool Car::isOlder(const Car &car2) const
 	{
-       m_color[index] = color[index];
+		return car2.m_year < m_year;
 	}
-	m_color[ index ] = '\0';
-	m_license = licenseNumber::getNextLicense();
-}
-
-Car::Car(Car& newCar)
-{
-	int lengthColor = strlen(newCar.m_color);
-
-	m_make = newCar.m_make;
-	m_model = newCar.m_model;
-	m_year = newCar.m_year;
-	m_engineVolume = newCar.m_engineVolume;
-	for (int index = 0; index < lengthColor; index++)
+	bool Car::isLarger(const Car &car2) const
 	{
-		m_color[ index ] = newCar.m_color[ index ];
+		return car2.m_engineVolume < m_engineVolume;
 	}
-	m_color[ lengthColor ] = '\0';
-	m_license = licenseNumber::getNextLicense();
-}
 
-void Car::print() const
-{
-	std::cout << "Make: " << m_make << "\nModel: " << m_model << "\nYear: "<<m_year<<"\nEngine Volume: " << m_engineVolume << "\nColor: " << m_color << std::endl <<"License Plate: "<<m_license<< std::endl<<std::endl;
-}
+	const Car& Car::getOlder(const Car &car1, const Car &car2) const
+	{
+		return car1.isOlder(car2) ? car1 : car2;
+	}
 
-bool Car::isOlder( const Car &car2 ) const
-{
-	return car2.m_year < m_year;
-}
-bool Car::isLarger( const Car &car2 ) const
-{
-	return car2.m_engineVolume < m_engineVolume;
-}
-
-const Car& Car::getOlder(const Car &car1, const Car &car2) const
-{
-	return car1.isOlder(car2) ? car1 : car2;
-}
-
-const Car& Car::getLarger(const Car &car1, const Car &car2) const
-{
-	return car1.isLarger(car2) ? car1 : car2;
+	const Car& Car::getLarger(const Car &car1, const Car &car2) const
+	{
+		return car1.isLarger(car2) ? car1 : car2;
+	}
 }
